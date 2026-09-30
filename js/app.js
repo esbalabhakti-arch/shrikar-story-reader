@@ -24,7 +24,8 @@ const storyLines = document.getElementById("storyLines");
 const nextButton = document.getElementById("nextButton");
 
 let currentSectionIndex = 0;
-
+let shownReviews = new Set();
+let pendingNextSectionIndex = null;
 // ---------------------------------------------
 // LOAD BOOK
 // ---------------------------------------------
@@ -107,8 +108,15 @@ function loadBook() {
             // ---------------------------------
 
             currentBook = book;
+            
             currentSectionIndex = 0;
+            shownReviews = new Set();
+            pendingNextSectionIndex = null;
+            
             nextButton.style.display = "inline-block";
+            
+            document.getElementById("reviewScreen").style.display = "none";
+            
             showReadingSection();
 
             // ---------------------------------
@@ -298,16 +306,28 @@ sectionSentences.forEach(sentence => {
 // NEXT BUTTON
 // =============================================
 
-nextButton.addEventListener(
-    "click",
-    function() {
+nextButton.addEventListener("click", function() {
 
-        currentSectionIndex++;
+    const section =
+        currentBook.readingSections[currentSectionIndex];
 
-        showReadingSection();
+    const review = findReviewForSection(section);
 
+    if (review) {
+
+        pendingNextSectionIndex =
+            currentSectionIndex + 1;
+
+        showReview(review);
+
+        return;
     }
-);
+
+    currentSectionIndex++;
+
+    showReadingSection();
+
+});
 
 
 
@@ -337,7 +357,132 @@ function showFinishedScreen() {
 
 }
 
+// =============================================
+// FIND REVIEW
+// =============================================
 
+function findReviewForSection(section) {
+
+    if (!section || !currentBook.reviews) {
+        return null;
+    }
+
+    return currentBook.reviews.find(review => {
+
+        return (
+            review.afterSentence <= section.endSentence &&
+            !shownReviews.has(review.afterSentence)
+        );
+
+    }) || null;
+}
+
+
+
+// =============================================
+// SHOW STORY REVIEW
+// =============================================
+
+function showReview(review) {
+
+    const reviewScreen =
+        document.getElementById("reviewScreen");
+
+    const reviewQuestions =
+        document.getElementById("reviewQuestions");
+
+
+    readingScreen.style.display = "none";
+    reviewScreen.style.display = "block";
+
+    reviewQuestions.innerHTML = "";
+
+
+    review.questions.forEach((item, index) => {
+
+        const questionBlock =
+            document.createElement("div");
+
+        questionBlock.className =
+            "review-question";
+
+
+        const question =
+            document.createElement("div");
+
+        question.className =
+            "review-question-text";
+
+        question.textContent =
+            item.question;
+
+
+        const answer =
+            document.createElement("div");
+
+        answer.className =
+            "review-answer";
+
+        answer.textContent =
+            item.answer;
+
+
+        questionBlock.appendChild(question);
+        questionBlock.appendChild(answer);
+
+        reviewQuestions.appendChild(
+            questionBlock
+        );
+
+    });
+
+
+    shownReviews.add(review.afterSentence);
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+
+// =============================================
+// CONTINUE AFTER REVIEW
+// =============================================
+
+document
+    .getElementById("continueStoryButton")
+    .addEventListener("click", function() {
+
+        document.getElementById(
+            "reviewScreen"
+        ).style.display = "none";
+
+
+        if (
+            pendingNextSectionIndex >=
+            currentBook.readingSections.length
+        ) {
+
+            readingScreen.style.display = "block";
+
+            showFinishedScreen();
+
+            return;
+        }
+
+
+        currentSectionIndex =
+            pendingNextSectionIndex;
+
+        pendingNextSectionIndex = null;
+
+        showReadingSection();
+
+    });
 
 // =============================================
 // SAFE TEXT DISPLAY

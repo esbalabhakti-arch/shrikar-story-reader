@@ -14,7 +14,7 @@
 <body>
 
     <main>
-
+ <div id="setupScreen">
         <h1>📚 Shrikar Story Reader</h1>
 
         <p>
@@ -48,13 +48,15 @@
 
         <p id="statusMessage"></p>
 
-
+ </div>
         <!-- =====================================
              READING SCREEN
         ====================================== -->
 
         <section id="readingScreen" style="display: none;">
-
+        <button id="backToBooksButton" class="back-to-books">
+            ← Choose Another Book
+        </button>
             <hr>
 
             <h2 id="bookTitle"></h2>
@@ -97,6 +99,10 @@
 
         <section id="reviewScreen" style="display: none;">
 
+            <button class="back-to-books back-to-books-review">
+                ← Choose Another Book
+            </button>
+            
             <hr>
 
             <div id="reviewCard">

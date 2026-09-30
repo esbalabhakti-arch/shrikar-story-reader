@@ -1,10 +1,161 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4faf6;
-    margin: 0;
-    padding: 0;
+/* ================================
+   SHRIKAR STORY READER
+   Main styling
+================================ */
+
+* {
+    box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f1f8f4;
+    color: #263238;
+}
+
+
+/* Main page container */
+
+main {
+    width: 90%;
+    max-width: 850px;
+
+    margin: 50px auto;
+    padding: 40px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+
+/* Main title */
+
 h1 {
+    margin-top: 0;
+
     color: #176b45;
+
+    font-size: 38px;
+}
+
+
+/* Section titles */
+
+h2 {
+    color: #176b45;
+
+    font-size: 26px;
+}
+
+
+/* Normal text */
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* Divider */
+
+hr {
+    margin: 30px 0;
+
+    border: none;
+    border-top: 1px solid #dce8df;
+}
+
+
+/* File upload */
+
+input[type="file"] {
+    margin-top: 15px;
+
+    padding: 15px;
+
+    width: 100%;
+
+    border: 2px dashed #75a98b;
+
+    border-radius: 12px;
+
+    background: #f7fcf9;
+
+    font-size: 16px;
+}
+
+
+/* Main buttons */
+
+button {
+    margin-top: 20px;
+
+    padding: 14px 28px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #176b45;
+    color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+/* Button hover */
+
+button:hover {
+    background: #105337;
+
+    transform: translateY(-1px);
+}
+
+
+/* Status messages */
+
+#statusMessage {
+    margin-top: 20px;
+
+    font-weight: bold;
+
+    color: #176b45;
+}
+
+
+/* Smaller screens */
+
+@media (max-width: 600px) {
+
+    main {
+        width: 94%;
+        margin: 20px auto;
+        padding: 25px 18px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    p {
+        font-size: 17px;
+    }
 }

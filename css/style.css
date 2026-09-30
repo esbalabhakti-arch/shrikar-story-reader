@@ -483,3 +483,163 @@ body.reading-mode .story-paragraph {
     }
 
 }
+/* =========================================
+   STORY REVIEW — CHILD FRIENDLY DESIGN
+========================================= */
+
+body.reading-mode #reviewCard {
+    max-width: 950px;
+    margin: 25px auto 0;
+    padding: 20px 30px 45px;
+}
+
+
+/* Small heading at top */
+
+.review-label {
+    text-align: center;
+
+    color: #176b45;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 12px;
+}
+
+
+#reviewCard h2 {
+    text-align: center;
+
+    font-size: 30px;
+
+    margin: 8px 0 10px;
+}
+
+
+.review-intro {
+    text-align: center;
+
+    font-size: 19px;
+
+    margin-bottom: 35px;
+}
+
+
+/* Container for all questions */
+
+#reviewQuestions {
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+
+/* One question + answer card */
+
+.review-question {
+    background: #ffffff;
+
+    border: 1px solid #dce7e1;
+
+    border-radius: 18px;
+
+    padding: 28px 34px;
+
+    margin-bottom: 24px;
+
+    box-shadow:
+        0 5px 16px rgba(0, 0, 0, 0.05);
+
+    text-align: left;
+}
+
+
+/* Question */
+
+.review-question-text {
+    font-size: 23px;
+
+    line-height: 1.5;
+
+    font-weight: bold;
+
+    color: #174f3c;
+
+    margin-bottom: 16px;
+}
+
+
+/* Put a question symbol before each question */
+
+.review-question-text::before {
+    content: "❓";
+
+    margin-right: 10px;
+}
+
+
+/* Answer */
+
+.review-answer {
+    background: #eef8f3;
+
+    border-radius: 12px;
+
+    padding: 16px 20px;
+
+    font-size: 20px;
+
+    line-height: 1.55;
+
+    color: #263238;
+}
+
+
+/* Label the answer */
+
+.review-answer::before {
+    content: "💡 Answer: ";
+
+    font-weight: bold;
+
+    color: #176b45;
+}
+
+
+/* Continue button */
+
+#continueStoryButton {
+    display: block;
+
+    margin: 32px auto 0;
+
+    padding: 15px 32px;
+
+    font-size: 18px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    body.reading-mode #reviewCard {
+        padding: 15px 5px 35px;
+    }
+
+    .review-question {
+        padding: 22px 20px;
+    }
+
+    .review-question-text {
+        font-size: 20px;
+    }
+
+    .review-answer {
+        font-size: 18px;
+    }
+
+}

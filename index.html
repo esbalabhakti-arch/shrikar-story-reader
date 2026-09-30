@@ -24,6 +24,10 @@
 
         <hr>
 
+        <!-- =====================================
+             BOOK UPLOAD
+        ====================================== -->
+
         <h2>Choose a Book</h2>
 
         <p>
@@ -43,47 +47,84 @@
         </button>
 
         <p id="statusMessage"></p>
+
+
         <!-- =====================================
-     READING SCREEN
-===================================== -->
+             READING SCREEN
+        ====================================== -->
 
-<section id="readingScreen" style="display: none;">
+        <section id="readingScreen" style="display: none;">
 
-    <hr>
+            <hr>
 
-    <h2 id="bookTitle"></h2>
-
-
-    <!-- STORY SO FAR -->
-
-    <div id="storySoFarBox" style="display: none;">
-
-        <h3>🔗 Story So Far</h3>
-
-        <p id="storySoFarText"></p>
-
-    </div>
+            <h2 id="bookTitle"></h2>
 
 
-    <!-- NEW STORY SECTION -->
+            <!-- STORY SO FAR -->
 
-    <div id="storySection">
+            <div id="storySoFarBox" style="display: none;">
 
-        <h3>📖 Keep Reading</h3>
+                <h3>🔗 Story So Far</h3>
 
-        <div id="storyLines"></div>
+                <p id="storySoFarText"></p>
 
-    </div>
+            </div>
 
 
-    <!-- NAVIGATION -->
+            <!-- NEW STORY SECTION -->
 
-    <button id="nextButton">
-        Next →
-    </button>
+            <div id="storySection">
 
-</section>
+                <h3>📖 Keep Reading</h3>
+
+                <div id="storyLines"></div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <button id="nextButton">
+                Next →
+            </button>
+
+        </section>
+
+
+        <!-- =====================================
+             STORY REVIEW SCREEN
+        ====================================== -->
+
+        <section id="reviewScreen" style="display: none;">
+
+            <hr>
+
+            <div id="reviewCard">
+
+                <div class="review-label">
+                    ⭐ STORY REVIEW
+                </div>
+
+                <h2>
+                    Let's Connect the Story
+                </h2>
+
+                <p class="review-intro">
+                    Look back at the important ideas you have read.
+                </p>
+
+                <div id="reviewQuestions"></div>
+
+                <button id="continueStoryButton">
+                    Continue Story →
+                </button>
+
+            </div>
+
+        </section>
+
     </main>
+
 
     <!-- Connect our JavaScript -->
     <script src="js/app.js?v=3"></script>

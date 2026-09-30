@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Shrikar Story Reader</title>
+
+    <!-- Connect our CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <h1>Shrikar Story Reader</h1>
+    <main>
 
-    <p>Building the new cumulative reading system...</p>
+        <h1>📚 Shrikar Story Reader</h1>
+
+        <p>
+            Read a story, remember what happened,
+            and connect the story as you go.
+        </p>
+
+        <hr>
+
+        <h2>Choose a Book</h2>
+
+        <p>
+            Upload a prepared story file to begin reading.
+        </p>
+
+        <input
+            type="file"
+            id="bookFile"
+            accept=".json"
+        >
+
+        <br><br>
+
+        <button id="loadBookButton">
+            📖 Read This Book
+        </button>
+
+        <p id="statusMessage"></p>
+
+    </main>
+
+    <!-- Connect our JavaScript -->
+    <script src="js/app.js"></script>
 
 </body>
+
 </html>

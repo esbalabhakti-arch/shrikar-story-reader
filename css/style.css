@@ -643,3 +643,189 @@ body.reading-mode #reviewCard {
     }
 
 }
+
+/* =========================================
+   MULTIPLE CHOICE STORY REVIEWS
+========================================= */
+
+.review-question {
+    background: #ffffff;
+
+    border: 1px solid #dce7e1;
+    border-radius: 20px;
+
+    padding: 30px 36px;
+
+    margin-bottom: 28px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.05);
+
+    text-align: left;
+}
+
+
+.review-question-text {
+    font-size: 23px;
+
+    line-height: 1.5;
+
+    font-weight: bold;
+
+    color: #174f3c;
+
+    margin-bottom: 22px;
+}
+
+
+/* Disable the old question-mark pseudo-element
+   because questions are now numbered */
+
+.review-question-text::before {
+    content: "";
+    margin: 0;
+}
+
+
+/* Choice area */
+
+.review-choices {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 13px;
+}
+
+
+/* Individual answer choice */
+
+.review-choice {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 16px 20px;
+
+    background: #f7faf8;
+
+    color: #263238;
+
+    border: 2px solid #d8e4de;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+    font-size: 19px;
+    font-weight: normal;
+
+    line-height: 1.4;
+
+    transition: 0.15s;
+}
+
+
+.review-choice:hover {
+    background: #edf7f2;
+
+    border-color: #78aa91;
+
+    color: #174f3c;
+
+    transform: none;
+}
+
+
+.review-choice:disabled {
+    cursor: default;
+}
+
+
+/* Correct selection */
+
+.review-choice.correct-choice {
+    background: #e4f6eb;
+
+    border-color: #4b9b69;
+
+    color: #155d34;
+
+    font-weight: bold;
+}
+
+
+/* Incorrect attempt */
+
+.review-choice.wrong-choice {
+    background: #fff0f0;
+
+    border-color: #d88b8b;
+
+    color: #8a3535;
+}
+
+
+/* Feedback */
+
+.review-feedback {
+    margin-top: 18px;
+
+    padding: 15px 18px;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+
+    line-height: 1.5;
+}
+
+
+.correct-feedback {
+    background: #e9f7ee;
+
+    color: #175c35;
+}
+
+
+.wrong-feedback {
+    background: #fff4e5;
+
+    color: #77521d;
+}
+
+
+.review-explanation {
+    margin-top: 8px;
+
+    font-weight: normal;
+
+    color: #34473f;
+}
+
+
+/* Old answer box is no longer used */
+
+.review-answer {
+    display: none;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .review-question {
+        padding: 24px 20px;
+    }
+
+    .review-question-text {
+        font-size: 20px;
+    }
+
+    .review-choice {
+        font-size: 18px;
+        padding: 14px 16px;
+    }
+
+}

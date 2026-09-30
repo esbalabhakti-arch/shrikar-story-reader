@@ -229,13 +229,7 @@ function showReadingSection() {
         line.className = "story-line";
 
 
-        line.innerHTML = `
-            <span class="line-number">
-                ${sentence.number}.
-            </span>
-
-            ${escapeHTML(sentence.text)}
-        `;
+        line.innerHTML = escapeHTML(sentence.text);
 
 
         storyLines.appendChild(line);

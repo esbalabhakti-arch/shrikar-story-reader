@@ -23,6 +23,8 @@ const storyLines = document.getElementById("storyLines");
 
 const nextButton = document.getElementById("nextButton");
 
+const setupScreen = document.getElementById("setupScreen");
+
 let currentSectionIndex = 0;
 let shownReviews = new Set();
 let pendingNextSectionIndex = null;
@@ -106,18 +108,24 @@ function loadBook() {
             // ---------------------------------
             // SAVE BOOK
             // ---------------------------------
+                currentBook = book;
+                
+                currentSectionIndex = 0;
+                shownReviews = new Set();
+                pendingNextSectionIndex = null;
+                
+                nextButton.style.display = "inline-block";
+                
+                document.getElementById("reviewScreen").style.display = "none";
+                
+                /* Leave the book-selection page */
+                setupScreen.style.display = "none";
+                
+                /* Turn the site into reading mode */
+                document.body.classList.add("reading-mode");
+                
+                showReadingSection();
 
-            currentBook = book;
-            
-            currentSectionIndex = 0;
-            shownReviews = new Set();
-            pendingNextSectionIndex = null;
-            
-            nextButton.style.display = "inline-block";
-            
-            document.getElementById("reviewScreen").style.display = "none";
-            
-            showReadingSection();
 
             // ---------------------------------
             // CONFIRM SUCCESS
@@ -483,6 +491,38 @@ document
         showReadingSection();
 
     });
+
+// =============================================
+// RETURN TO BOOK SELECTION
+// =============================================
+
+document
+    .querySelectorAll(".back-to-books")
+    .forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            readingScreen.style.display = "none";
+
+            document.getElementById(
+                "reviewScreen"
+            ).style.display = "none";
+
+            setupScreen.style.display = "block";
+
+            document.body.classList.remove(
+                "reading-mode"
+            );
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+    });
+
 
 // =============================================
 // SAFE TEXT DISPLAY

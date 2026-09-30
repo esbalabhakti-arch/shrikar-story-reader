@@ -408,12 +408,20 @@ function showReview(review) {
 
     review.questions.forEach((item, index) => {
 
+        // -------------------------------------
+        // QUESTION CARD
+        // -------------------------------------
+
         const questionBlock =
             document.createElement("div");
 
         questionBlock.className =
             "review-question";
 
+
+        // -------------------------------------
+        // QUESTION
+        // -------------------------------------
 
         const question =
             document.createElement("div");
@@ -422,21 +430,81 @@ function showReview(review) {
             "review-question-text";
 
         question.textContent =
-            item.question;
-
-
-        const answer =
-            document.createElement("div");
-
-        answer.className =
-            "review-answer";
-
-        answer.textContent =
-            item.answer;
-
+            `${index + 1}. ${item.question}`;
 
         questionBlock.appendChild(question);
-        questionBlock.appendChild(answer);
+
+
+        // -------------------------------------
+        // CHOICES
+        // -------------------------------------
+
+        const choicesBox =
+            document.createElement("div");
+
+        choicesBox.className =
+            "review-choices";
+
+
+        item.choices.forEach(
+            (choiceText, choiceIndex) => {
+
+                const choiceButton =
+                    document.createElement("button");
+
+                choiceButton.className =
+                    "review-choice";
+
+                choiceButton.textContent =
+                    choiceText;
+
+
+                choiceButton.addEventListener(
+                    "click",
+                    function() {
+
+                        checkReviewAnswer(
+                            item,
+                            choiceIndex,
+                            choicesBox,
+                            questionBlock
+                        );
+
+                    }
+                );
+
+
+                choicesBox.appendChild(
+                    choiceButton
+                );
+
+            }
+        );
+
+
+        questionBlock.appendChild(
+            choicesBox
+        );
+
+
+        // -------------------------------------
+        // FEEDBACK AREA
+        // -------------------------------------
+
+        const feedback =
+            document.createElement("div");
+
+        feedback.className =
+            "review-feedback";
+
+        feedback.style.display =
+            "none";
+
+
+        questionBlock.appendChild(
+            feedback
+        );
+
 
         reviewQuestions.appendChild(
             questionBlock
@@ -445,7 +513,9 @@ function showReview(review) {
     });
 
 
-    shownReviews.add(review.afterSentence);
+    shownReviews.add(
+        review.afterSentence
+    );
 
 
     window.scrollTo({
@@ -455,6 +525,94 @@ function showReview(review) {
 
 }
 
+function checkReviewAnswer(
+    item,
+    selectedIndex,
+    choicesBox,
+    questionBlock
+) {
+
+    const feedback =
+        questionBlock.querySelector(
+            ".review-feedback"
+        );
+
+
+    const buttons =
+        choicesBox.querySelectorAll(
+            ".review-choice"
+        );
+
+
+    // -----------------------------------------
+    // CORRECT
+    // -----------------------------------------
+
+    if (
+        selectedIndex ===
+        item.correctChoice
+    ) {
+
+        buttons.forEach(button => {
+            button.disabled = true;
+        });
+
+
+        buttons[selectedIndex]
+            .classList.add(
+                "correct-choice"
+            );
+
+
+        feedback.className =
+            "review-feedback correct-feedback";
+
+
+        feedback.innerHTML = `
+            <strong>✅ Correct!</strong>
+            <div class="review-explanation">
+                ${escapeHTML(item.explanation)}
+            </div>
+        `;
+
+
+        feedback.style.display =
+            "block";
+
+    }
+
+
+    // -----------------------------------------
+    // INCORRECT
+    // -----------------------------------------
+
+    else {
+
+        buttons[selectedIndex]
+            .classList.add(
+                "wrong-choice"
+            );
+
+
+        buttons[selectedIndex].disabled =
+            true;
+
+
+        feedback.className =
+            "review-feedback wrong-feedback";
+
+
+        feedback.innerHTML = `
+            <strong>Not quite — try again.</strong>
+        `;
+
+
+        feedback.style.display =
+            "block";
+
+    }
+
+}
 
 
 // =============================================

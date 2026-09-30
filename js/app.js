@@ -211,30 +211,54 @@ function showReadingSection() {
     storyLines.innerHTML = "";
 
 
-    section.sentences.forEach(sentenceNumber => {
-
-        const sentence =
-            currentBook.sentences.find(
-                item => item.number === sentenceNumber
-            );
-
-
-        if (!sentence) {
-            return;
-        }
+    const sectionSentences = section.sentences
+    .map(sentenceNumber =>
+        currentBook.sentences.find(
+            item => item.number === sentenceNumber
+        )
+    )
+    .filter(Boolean);
 
 
-        const line = document.createElement("p");
+// Group nearby sentences into natural reading paragraphs.
+// A new paragraph begins when the original book page changes.
 
-        line.className = "story-line";
+let currentParagraph = null;
+let currentPage = null;
 
 
-        line.innerHTML = escapeHTML(sentence.text);
+sectionSentences.forEach(sentence => {
+
+    if (
+        currentParagraph === null ||
+        sentence.sourcePageNumber !== currentPage
+    ) {
+
+        currentParagraph =
+            document.createElement("p");
+
+        currentParagraph.className =
+            "story-paragraph";
+
+        storyLines.appendChild(
+            currentParagraph
+        );
+
+        currentPage =
+            sentence.sourcePageNumber;
+    }
 
 
-        storyLines.appendChild(line);
+    if (currentParagraph.textContent !== "") {
+        currentParagraph.append(" ");
+    }
 
-    });
+
+    currentParagraph.append(
+        sentence.text
+    );
+
+});
 
 
     // -----------------------------------------

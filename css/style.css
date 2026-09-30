@@ -279,23 +279,22 @@ button:hover {
 }
 
 
-.story-line {
-    margin: 0 0 18px;
+.story-paragraph {
+    margin: 0 0 24px;
 
     font-family: Georgia, "Times New Roman", serif;
 
     font-size: 24px;
 
-    line-height: 1.65;
+    line-height: 1.75;
 
     color: #263238;
 }
 
 
-.story-line:last-child {
+.story-paragraph:last-child {
     margin-bottom: 0;
 }
-
 
 /* =========================================
    NEXT BUTTON

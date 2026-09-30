@@ -13,7 +13,17 @@ let currentBook = null;
 const bookFile = document.getElementById("bookFile");
 const loadBookButton = document.getElementById("loadBookButton");
 const statusMessage = document.getElementById("statusMessage");
+const readingScreen = document.getElementById("readingScreen");
+const bookTitle = document.getElementById("bookTitle");
 
+const storySoFarBox = document.getElementById("storySoFarBox");
+const storySoFarText = document.getElementById("storySoFarText");
+
+const storyLines = document.getElementById("storyLines");
+
+const nextButton = document.getElementById("nextButton");
+
+let currentSectionIndex = 0;
 
 // ---------------------------------------------
 // LOAD BOOK
@@ -97,7 +107,9 @@ function loadBook() {
             // ---------------------------------
 
             currentBook = book;
-
+            currentSectionIndex = 0;
+            nextButton.style.display = "inline-block";
+            showReadingSection();
 
             // ---------------------------------
             // CONFIRM SUCCESS
@@ -135,5 +147,191 @@ function loadBook() {
 
 
     reader.readAsText(file);
+
+}
+// =============================================
+// SHOW READING SECTION
+// =============================================
+
+function showReadingSection() {
+
+    if (!currentBook) {
+        return;
+    }
+
+
+    const section =
+        currentBook.readingSections[currentSectionIndex];
+
+
+    if (!section) {
+        showFinishedScreen();
+        return;
+    }
+
+
+    // -----------------------------------------
+    // SHOW READING SCREEN
+    // -----------------------------------------
+
+    readingScreen.style.display = "block";
+
+    bookTitle.textContent = currentBook.title;
+
+
+    // -----------------------------------------
+    // STORY SO FAR
+    // -----------------------------------------
+
+    if (
+        section.storySoFar &&
+        section.storySoFar.trim() !== ""
+    ) {
+
+        storySoFarBox.style.display = "block";
+
+        storySoFarText.textContent =
+            section.storySoFar;
+
+    }
+
+    else {
+
+        storySoFarBox.style.display = "none";
+
+        storySoFarText.textContent = "";
+
+    }
+
+
+    // -----------------------------------------
+    // STORY LINES
+    // -----------------------------------------
+
+    storyLines.innerHTML = "";
+
+
+    section.sentences.forEach(sentenceNumber => {
+
+        const sentence =
+            currentBook.sentences.find(
+                item => item.number === sentenceNumber
+            );
+
+
+        if (!sentence) {
+            return;
+        }
+
+
+        const line = document.createElement("p");
+
+        line.className = "story-line";
+
+
+        line.innerHTML = `
+            <span class="line-number">
+                ${sentence.number}.
+            </span>
+
+            ${escapeHTML(sentence.text)}
+        `;
+
+
+        storyLines.appendChild(line);
+
+    });
+
+
+    // -----------------------------------------
+    // BUTTON TEXT
+    // -----------------------------------------
+
+    if (
+        currentSectionIndex ===
+        currentBook.readingSections.length - 1
+    ) {
+
+        nextButton.textContent =
+            "Finish Book ✓";
+
+    }
+
+    else {
+
+        nextButton.textContent =
+            "Next →";
+
+    }
+
+
+    // Return to top when a new section appears
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+
+// =============================================
+// NEXT BUTTON
+// =============================================
+
+nextButton.addEventListener(
+    "click",
+    function() {
+
+        currentSectionIndex++;
+
+        showReadingSection();
+
+    }
+);
+
+
+
+// =============================================
+// FINISHED SCREEN
+// =============================================
+
+function showFinishedScreen() {
+
+    storySoFarBox.style.display = "none";
+
+    storyLines.innerHTML = `
+        <div class="finished-message">
+
+            <h2>🎉 Great Reading!</h2>
+
+            <p>
+                You finished
+                <strong>${escapeHTML(currentBook.title)}</strong>.
+            </p>
+
+        </div>
+    `;
+
+
+    nextButton.style.display = "none";
+
+}
+
+
+
+// =============================================
+// SAFE TEXT DISPLAY
+// =============================================
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
 
 }
